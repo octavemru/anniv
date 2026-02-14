@@ -1,0 +1,52 @@
+html, body {
+    	height: 100%;
+    	margin: 0;
+	font-family: Verdana;
+}
+
+body {
+    	display: flex;
+    	flex-direction: column;
+    	background: linear-gradient(120deg, #0077ff, #00c853, #ff6f00);
+    	background-attachment: fixed;
+    	font-size: 180%;
+}
+
+main {
+    	flex: 1;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+footer {
+    	background: #555;
+    	color: white;
+    	text-align: center;
+	padding: 10px 0;
+}
+
+h1 {
+	text-align: center;
+	font-size: 250%;
+}
+
+h2 {
+	font-size: 150%;
+}
+
+.conteneur {
+    	text-align: center;
+	margin-top: auto;
+}
+
+a {
+	color:white;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
