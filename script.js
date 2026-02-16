@@ -1,44 +1,32 @@
 const supabase = window.supabase.createClient(
-  "https://ddzebzonhkghfzjkvuan.supabase.co",
-  "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
+  "TON_URL",
+  "TA_CLE_ANON"
 );
 
-// BOUTONS
-document.getElementById("loginBtn").addEventListener("click", login);
 document.getElementById("saveBtn").addEventListener("click", saveScore);
 document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
 
-// LOGIN
-async function login() {
-    const email = document.getElementById("email").value;
-
-    await supabase.auth.signInWithOtp({ email: email });
-
-    alert("Regarde tes mails pour te connecter !");
-}
-
-// SAVE SCORE
 async function saveScore() {
-    const { data: userData } = await supabase.auth.getUser();
 
-    if (!userData.user) {
-        alert("Tu dois être connecté !");
+    const username = document.getElementById("username").value;
+    const score = document.getElementById("scoreInput").value;
+
+    if(username === "" || score === ""){
+        alert("Remplis ton pseudo et ton score !");
         return;
     }
 
-    const score = document.getElementById("scoreInput").value;
-
     await supabase.from("scores").insert({
-        user_id: userData.user.id,
-        username: userData.user.email,
+        username: username,
         score: score
     });
 
     alert("Score enregistré !");
+    loadLeaderboard();
 }
 
-// LOAD LEADERBOARD
 async function loadLeaderboard() {
+
     let { data } = await supabase
         .from("scores")
         .select("*")
