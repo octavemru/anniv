@@ -1,6 +1,6 @@
 const supabase = window.supabase.createClient(
-  "TON_URL",
-  "TA_CLE_ANON"
+  "https://ddzebzonhkghfzjkvuan.supabase.co",
+  "sb_secret_aIhn55ueLbZY0FPOjAVjxQ_aMePvFFQ"
 );
 
 document.getElementById("saveBtn").addEventListener("click", saveScore);
