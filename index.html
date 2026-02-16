@@ -5,7 +5,6 @@
 <title>Anniversaire Papa 🎂</title>
 
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
@@ -14,10 +13,10 @@
 <h1>🎉 Anniversaire Papa 🎉</h1>
 
 <section>
-<h2>Connexion</h2>
-
+<h2>Ton pseudo</h2>
 <input id="username" placeholder="Votre pseudo">
 </section>
+
 <section>
 <h2>🧠 Quiz sur Papa</h2>
 
@@ -27,8 +26,10 @@
 
 <h3>Ton score : <span id="finalScore">0</span></h3>
 </section>
+
 <hr>
 
+<section>
 <h2>🏆 Classement</h2>
 <button id="refreshBtn">Actualiser</button>
 
@@ -41,31 +42,9 @@
 </thead>
 <tbody id="leaderboard"></tbody>
 </table>
-
-<section>
-<h2>Envoyer un score</h2>
-<input id="scoreInput" type="number" placeholder="Votre score">
-<button id="saveBtn">Envoyer</button>
-</section>
-
-<section>
-<h2>Classement</h2>
-<button id="refreshBtn">Actualiser</button>
-
-<table>
-<thead>
-<tr>
-<th>Email</th>
-<th>Score</th>
-</tr>
-</thead>
-<tbody id="leaderboard"></tbody>
-</table>
 </section>
 
 <script src="script.js"></script>
 
 </body>
 </html>
-
-
