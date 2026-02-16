@@ -1,26 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-   		<link rel="stylesheet" type="text/css" href="style.css" />
-	</head>
-	<body>
-		<main>
-        		<h1>Projet de nsi/pourquoi s'inscrire au triathlon</h1>
-        		<p>
-			J'ai créé un site qui est séparé en deux pages, une d'accueil, qui nous amène soit sur le site du lycée, soit sur ma deuxième page. Su ma deuxième page, il y a des titres et titres secondaires avec une image et un lien vers le site de sens triathlon
-			</p>
+<head>
+<meta charset="UTF-8">
+<title>Anniversaire Papa 🎂</title>
 
-        		<nav>
-            			<ul>
-                			<li><a href="https://lyc-janot-curie-sens.eclat-bfc.fr/">Aller sur le site du lycée.</a></li>
-                			<li><a href="moreau_octave_triathlon.html">Explore ma deuxième page.</a></li>
-           			 </ul>
-        		</nav>
-    		</main>
-    		<footer>
-        		Moreau, Octave, 1G10, 26 octobre 2025 - <a href="credits.html">Crédits</a>
+<link rel="stylesheet" href="style.css">
 
-    		</footer>
-	</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<h1>🎉 Anniversaire Papa 🎉</h1>
+
+<section>
+<h2>Connexion</h2>
+<input id="email" placeholder="Votre email">
+<button id="loginBtn">Se connecter</button>
+</section>
+
+<section>
+<h2>Envoyer un score</h2>
+<input id="scoreInput" type="number" placeholder="Votre score">
+<button id="saveBtn">Envoyer</button>
+</section>
+
+<section>
+<h2>Classement</h2>
+<button id="refreshBtn">Actualiser</button>
+
+<table>
+<thead>
+<tr>
+<th>Email</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody id="leaderboard"></tbody>
+</table>
+</section>
+
+<script src="script.js"></script>
+
+</body>
 </html>
