@@ -1,6 +1,6 @@
 const supabase = window.supabase.createClient(
-  "TON_URL",
-  "TA_CLE_ANON"
+  "https://ddzebzonhkghfzjkvuan.supabase.co",
+  "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
 );
 
 // BOUTONS
