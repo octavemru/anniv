@@ -1,5 +1,5 @@
 const supabase = window.supabase.createClient(
-  "https://ddzebzonhkghfzjkvuan.supabase.co",
+  "https://ddzebzonhkghfzjkvuan.supabase.co",   
   "sb_secret_aIhn55ueLbZY0FPOjAVjxQ_aMePvFFQ"
 );
 
@@ -7,17 +7,16 @@ document.getElementById("saveBtn").addEventListener("click", saveScore);
 document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
 
 async function saveScore() {
+    const pseudo = document.getElementById("pseudo").value;
+    const score = parseInt(document.getElementById("scoreInput").value);
 
-    const username = document.getElementById("username").value;
-    const score = document.getElementById("scoreInput").value;
-
-    if(username === "" || score === ""){
-        alert("Remplis ton pseudo et ton score !");
+    if(!pseudo || isNaN(score)){
+        alert("Pseudo et score valides requis !");
         return;
     }
 
     await supabase.from("scores").insert({
-        username: username,
+        username: pseudo,
         score: score
     });
 
@@ -26,7 +25,6 @@ async function saveScore() {
 }
 
 async function loadLeaderboard() {
-
     let { data } = await supabase
         .from("scores")
         .select("*")
