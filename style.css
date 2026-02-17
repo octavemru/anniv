@@ -2,10 +2,18 @@ body {
     font-family: Arial; 
     text-align: center; 
     background: linear-gradient(120deg,#ff9966,#ff5e62); 
-    color: white; padding: 30px; 
-} 
+    color: white; 
+    padding: 30px; 
+    min-height: 100vh;       /* prend toute la hauteur de la fenêtre */
+    margin: 0;               /* supprime les marges par défaut du body */
+    background-attachment: fixed;
+    
+}
+
 section { 
     margin-top: 40px; 
+    background: transparent;
+    padding: 20px;
 } 
 input, button { 
     padding: 10px; 
@@ -43,5 +51,6 @@ td, th {
     flex-wrap: wrap;
     gap: 10px;  /* espace entre les images */
 }
+
 
 
