@@ -43,11 +43,12 @@ td, th {
 }
 
 #quizContainer img {
-    width: 150px;        /* largeur fixe pour toutes */
-    height: auto;        /* hauteur proportionnelle */
+    width: 150px;         /* largeur fixe */
+    height: 150px;        /* hauteur fixe, même pour toutes */
     border-radius: 8px;
     margin: 5px;
-    background: #fff;    /* pour voir l’espace si image petite */
+    background: #fff;
+    object-fit: cover;    /* recadre l’image pour remplir le bloc sans la déformer */
 }
 
 #quizContainer div {
@@ -56,6 +57,7 @@ td, th {
     flex-wrap: wrap;
     gap: 10px;  /* espace entre les images */
 }
+
 
 
 
