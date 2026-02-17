@@ -129,12 +129,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const img = document.createElement("img");
                 img.src = option.image;
                 img.alt = "Option";
-                img.style.width = "150px";
-                img.style.height = "150px";
-                img.style.objectFit = "cover";
+                img.style.width = "150px";  // largeur fixe
+                img.style.height = "auto";  // hauteur proportionnelle
                 img.style.borderRadius = "8px";
                 img.style.margin = "5px";
-                img.style.background = "#fff";
+                img.style.background = "#fff";  // pour les images avec transparence
+
                 
                 btn.appendChild(img);
 
