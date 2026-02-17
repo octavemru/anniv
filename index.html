@@ -2,21 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Anniversaire papa 🎂</title>
+<title>Anniversaire Papa 🎂</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
-<h1>🎉 Anniversaire papa 🎉</h1>
+<h1>🎉 Anniversaire Papa 🎉</h1>
 
 <section>
 <h2>Entre ton pseudo</h2>
 <input id="pseudo" placeholder="Ton pseudo">
+<button id="validatePseudo">Valider</button>
 </section>
 
-<section>
+<section id="quizSection" style="display:none;">
 <h2>🧠 Quiz sur Papa</h2>
 <div id="quizContainer"></div>
 <button id="submitQuiz">Valider le quiz</button>
@@ -28,7 +29,6 @@
 <section>
 <h2>🏆 Classement</h2>
 <button id="refreshBtn">Actualiser</button>
-
 <table>
 <thead>
 <tr>
@@ -43,5 +43,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
