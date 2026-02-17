@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Erreur lors du chargement du leaderboard :", err);
         }
     }
-
+    loadLeaderboards();
     // --- Envoyer un message ---
     document.getElementById("sendMessage").addEventListener("click", async () => {
         const message = document.getElementById("messageInput").value.trim();
