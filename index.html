@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Anniversaire Papa 🎂</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Anniversaire Papa 🎂</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>🎉 Anniversaire Papa 🎉</h1>
+<h1>🎉 Joyeux Anniversaire Papa 🎉</h1>
 
-    <!-- Section pseudo -->
-    <div id="pseudoSection">
-        <input type="text" id="pseudo" placeholder="Entre ton pseudo">
-        <button id="validatePseudo">Commencer le quiz</button>
-    </div>
+<section>
+<h2>Entrer ton pseudo</h2>
+<input id="pseudo" placeholder="Ton pseudo">
+</section>
 
-    <!-- Section quiz -->
-    <section id="quizSection" style="display:none;">
-        <div id="quizContainer"></div>
-        <button id="submitQuiz">Soumettre le quiz</button>
-        <p>Score final : <span id="finalScore">0</span></p>
-    </section>
+<section>
+<h2>🧠 Quiz sur Papa</h2>
+<div id="quizContainer"></div>
+<button id="submitQuiz">Valider le quiz</button>
+<h3>Ton score : <span id="finalScore">0</span></h3>
+</section>
 
-    <!-- Leaderboard -->
-    <section>
-        <h2>Leaderboard</h2>
-        <button id="refreshBtn">Rafraîchir</button>
-        <table id="leaderboard">
-            <tr>
-                <th>Pseudo</th>
-                <th>Score</th>
-            </tr>
-        </table>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
-
