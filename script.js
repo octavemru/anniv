@@ -128,5 +128,53 @@ async function loadLeaderboard(){
     });
 }
 
+// Envoyer un message
+document.getElementById("sendMessage").addEventListener("click", async () => {
+
+    const message = document.getElementById("messageInput").value;
+
+    if(!message){
+        alert("Écris un message !");
+        return;
+    }
+
+    await supabase.from("messages").insert({
+        content: message
+    });
+
+    document.getElementById("messageInput").value = "";
+    alert("Message envoyé 💌");
+
+    loadMessages();
+});
+
+async function loadMessages(){
+
+    let { data } = await supabase
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    const container = document.getElementById("messagesList");
+    container.innerHTML = "";
+
+    data.forEach(row => {
+
+        container.innerHTML += `
+            <div style="
+                background:white;
+                color:black;
+                padding:10px;
+                margin:10px auto;
+                width:60%;
+                border-radius:8px;">
+                ${row.content}
+            </div>
+        `;
+    });
+}
+
+// Charger les messages au démarrage
+loadMessages();
 
 });
