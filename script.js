@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "image",
             question: "Qui est papa ?", 
             options: [
-                { images: "images/gabin.jpg",correct:false},
-                { images: "images/papa.jpg",correct:true},
-                { images: "images/singe.jpg",correct:false}
+                { image: "images/gabin.jpg",correct:false},
+                { image: "images/papa.jpg",correct:true},
+                { image: "images/singe.jpg",correct:false}
             ] 
         }
     ];
