@@ -1,10 +1,10 @@
 const supabase = window.supabase.createClient(
-  "https://TON_PROJET.supabase.co",
+  "https://ddzebzonhkghfzjkvuan.supabase.co",
   "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
 );
 
-document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
-document.getElementById("submitQuiz").addEventListener("click", saveQuizScore);
+let pseudo = "";
+let score = 0;
 
 const quizQuestions = [
     {
@@ -24,44 +24,51 @@ const quizQuestions = [
     }
 ];
 
-let score = 0;
+document.getElementById("validatePseudo").addEventListener("click", () => {
+    const input = document.getElementById("pseudo").value;
 
-const quizContainer = document.getElementById("quizContainer");
-
-quizQuestions.forEach((q, index) => {
-    const div = document.createElement("div");
-
-    div.innerHTML += `<p>${q.question}</p>`;
-
-    q.options.forEach((option, i) => {
-        const btn = document.createElement("button");
-        btn.innerText = option;
-
-        btn.addEventListener("click", () => {
-            if(i === q.answer){
-                score++;
-                btn.style.backgroundColor = "green";
-            } else {
-                btn.style.backgroundColor = "red";
-            }
-            Array.from(div.getElementsByTagName("button"))
-                 .forEach(b => b.disabled = true);
-        });
-
-        div.appendChild(btn);
-    });
-
-    quizContainer.appendChild(div);
-});
-
-async function saveQuizScore() {
-
-    const pseudo = document.getElementById("pseudo").value;
-
-    if(!pseudo){
-        alert("Entre ton pseudo !");
+    if(!input){
+        alert("Entre un pseudo !");
         return;
     }
+
+    pseudo = input;
+    document.getElementById("quizSection").style.display = "block";
+    loadQuiz();
+});
+
+function loadQuiz(){
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+    score = 0;
+
+    quizQuestions.forEach((q, index) => {
+        const div = document.createElement("div");
+        div.innerHTML += `<p>${q.question}</p>`;
+
+        q.options.forEach((option, i) => {
+            const btn = document.createElement("button");
+            btn.innerText = option;
+
+            btn.addEventListener("click", () => {
+                if(i === q.answer){
+                    score++;
+                    btn.style.backgroundColor = "green";
+                } else {
+                    btn.style.backgroundColor = "red";
+                }
+                Array.from(div.getElementsByTagName("button"))
+                     .forEach(b => b.disabled = true);
+            });
+
+            div.appendChild(btn);
+        });
+
+        container.appendChild(div);
+    });
+}
+
+document.getElementById("submitQuiz").addEventListener("click", async () => {
 
     document.getElementById("finalScore").innerText = score;
 
@@ -72,9 +79,11 @@ async function saveQuizScore() {
 
     alert("Score enregistré !");
     loadLeaderboard();
-}
+});
 
-async function loadLeaderboard() {
+document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
+
+async function loadLeaderboard(){
 
     let { data } = await supabase
         .from("scores")
