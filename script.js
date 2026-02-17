@@ -27,6 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "text",
             question: "Quel est son hobby préféré ?", options: ["Football", "Cyclisme", "Trail"], 
             answer: 2 
+        },
+        {   
+            type: "image",
+            question: "Qui est papa ?", 
+            options: [
+                { images: "images/gabin.jpg",correct:false},
+                { images: "images/papa.jpg",correct:true},
+                { images: "images/singe.jpg",correct:false}
+            ] 
         }
     ];
 
