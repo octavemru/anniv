@@ -6,11 +6,6 @@ body {
     padding: 30px;
 }
 
-section {
-    margin-top: 40px;
-}
-
-/* Input et boutons */
 input, button {
     padding: 10px 20px;
     margin: 5px;
@@ -21,20 +16,17 @@ input, button {
     transition: transform 0.1s, opacity 0.1s;
 }
 
-/* Effet au survol des boutons */
 button:hover {
     transform: scale(1.05);
     opacity: 0.9;
 }
 
-/* Conteneur des questions */
 .questionBlock {
     margin-bottom: 20px;
 }
 
-/* Boutons des réponses */
 button {
-    background-color: #ffffffcc; /* blanc translucide par défaut */
+    background-color: #ffffffcc; /* par défaut */
     color: black;
 }
 
@@ -51,18 +43,4 @@ table {
 td, th {
     padding: 10px 15px;
     border: 1px solid black;
-}
-
-/* Mettre en évidence les 3 premiers scores */
-tr:first-child {
-    background-color: gold;
-    font-weight: bold;
-}
-tr:nth-child(2) {
-    background-color: silver;
-    font-weight: bold;
-}
-tr:nth-child(3) {
-    background-color: peru;
-    font-weight: bold;
 }
