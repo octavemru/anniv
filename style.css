@@ -30,9 +30,19 @@ td, th {
 }
 
 #quizContainer img {
-    width: 150px;       /* largeur fixe */
-    height: 150px;      /* hauteur fixe */
-    object-fit: cover;  /* recadre l'image pour remplir le cadre */
-    border-radius: 8px; /* coins arrondis */
+    width: 150px;        /* largeur fixe pour toutes */
+    height: auto;        /* hauteur proportionnelle */
+    max-height: 150px;   /* hauteur maximale */
+    object-fit: contain;  /* tout l'image visible, sans couper */
+    border-radius: 8px;
     margin: 5px;
+    background: #fff;    /* pour voir l’espace si image petite */
 }
+
+#quizContainer div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;  /* espace entre les images */
+}
+
