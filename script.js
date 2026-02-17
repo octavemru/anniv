@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let pseudo = "";
     let score = 0;
+    let quizDone = false; // empêche de refaire le quiz
 
     // Quiz enfant uniquement
     const quizEnfant = [
@@ -16,13 +17,26 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     // Validation du pseudo
-    document.getElementById("validatePseudo").addEventListener("click", () => {
+    document.getElementById("validatePseudo").addEventListener("click", async () => {
         const input = document.getElementById("pseudo").value;
         if(!input){
             alert("Entre un pseudo !");
             return;
         }
+
         pseudo = input;
+
+        // Vérifie si le pseudo a déjà fait le quiz
+        const { data: existing } = await supabase
+            .from("scores")
+            .select("*")
+            .eq("username", pseudo);
+
+        if(existing.length > 0){
+            alert("Ce pseudo a déjà fait le quiz !");
+            return;
+        }
+
         document.getElementById("quizSection").style.display = "block";
         loadQuiz();
     });
@@ -44,8 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.addEventListener("click", () => {
                     if(i === q.answer){
                         score++;
+                        btn.style.backgroundColor = "green";
+                    } else {
+                        btn.style.backgroundColor = "red";
                     }
-                    // Désactive tous les boutons de la question
+
+                    // Désactive tous les boutons de la question après un clic
                     Array.from(div.getElementsByTagName("button")).forEach(b => b.disabled = true);
                 });
 
@@ -58,6 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Soumettre le quiz et enregistrer le score
     document.getElementById("submitQuiz").addEventListener("click", async () => {
+        if(quizDone){
+            alert("Tu as déjà fait le quiz !");
+            return;
+        }
+
         document.getElementById("finalScore").innerText = score;
 
         await supabase.from("scores").insert({
@@ -66,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         alert("Score enregistré !");
+        quizDone = true; // marque le quiz comme fait
         loadLeaderboard();
     });
 
@@ -81,9 +105,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const table = document.getElementById("leaderboard");
         table.innerHTML = "";
 
-        data.forEach(row => {
+        data.forEach((row, index) => {
+            // Les 3 premiers scores mis en évidence
+            let bg = "white";
+            if(index === 0) bg = "gold";
+            else if(index === 1) bg = "silver";
+            else if(index === 2) bg = "peru";
+
             table.innerHTML += `
-                <tr>
+                <tr style="background-color:${bg}">
                     <td>${row.username}</td>
                     <td>${row.score}</td>
                 </tr>
