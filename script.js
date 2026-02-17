@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { question: "Quel est son hobby préféré ?", options: ["Football", "Cyclisme", "Trail"], answer: 2 }
     ];
 
-    // --- Fonction pour charger les messages ---
+    // --- Charger les messages ---
     async function loadMessages() {
         try {
             const { data, error } = await supabase
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Charger les messages au démarrage
+    // --- Charger messages au démarrage ---
     loadMessages();
 
     // --- Fonction pour charger le quiz ---
@@ -88,17 +88,37 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- Gestion du pseudo ---
-    document.getElementById("validatePseudo").addEventListener("click", () => {
+    // --- Valider le pseudo (unique) ---
+    document.getElementById("validatePseudo").addEventListener("click", async () => {
         const input = document.getElementById("pseudo").value.trim();
         if (!input) {
             alert("Entre un pseudo !");
             return;
         }
 
-        pseudo = input;
-        document.getElementById("quizSection").style.display = "block";
-        loadQuiz();
+        try {
+            // Vérifier si le pseudo existe déjà
+            let { data: existing, error } = await supabase
+                .from("scores")
+                .select("*")
+                .eq("username", input)
+                .limit(1);
+
+            if (error) throw error;
+
+            if (existing.length > 0) {
+                alert("Ce pseudo existe déjà ! Choisis-en un autre.");
+                return;
+            }
+
+            pseudo = input;
+            document.getElementById("quizSection").style.display = "block";
+            loadQuiz();
+
+        } catch (err) {
+            console.error("Erreur lors de la vérification du pseudo :", err);
+            alert("Erreur lors de la vérification du pseudo.");
+        }
     });
 
     // --- Soumettre le quiz ---
@@ -111,13 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 score: score
             });
             if (error) throw error;
+
             alert("Score enregistré !");
+            loadLeaderboard();
+
         } catch (err) {
             console.error("Erreur lors de l'enregistrement du score :", err);
             alert("Erreur lors de l'enregistrement du score.");
         }
-
-        loadLeaderboard();
     });
 
     // --- Actualiser le leaderboard ---
