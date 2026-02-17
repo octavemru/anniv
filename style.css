@@ -1,46 +1,32 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     text-align: center;
     background: linear-gradient(120deg, #ff9966, #ff5e62);
     color: white;
     padding: 30px;
 }
 
+section {
+    margin-top: 40px;
+}
+
 input, button {
-    padding: 10px 20px;
+    padding: 10px;
     margin: 5px;
     font-size: 16px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.1s, opacity 0.1s;
-}
-
-button:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
-}
-
-.questionBlock {
-    margin-bottom: 20px;
 }
 
 button {
-    background-color: #ffffffcc; /* par défaut */
-    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
 }
 
-/* Leaderboard */
-table {
-    margin: auto;
-    background: white;
-    color: black;
-    border-collapse: collapse;
-    margin-top: 20px;
-    min-width: 300px;
+.question {
+    margin: 15px 0;
 }
 
-td, th {
-    padding: 10px 15px;
-    border: 1px solid black;
+.question button {
+    margin: 5px;
+    min-width: 80px;
 }
