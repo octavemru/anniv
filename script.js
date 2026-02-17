@@ -1,6 +1,6 @@
-it document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-var supabase = window.supabase.createClient(
+const supabase = window.supabase.createClient(
   "https://ddzebzonhkghfzjkvuan.supabase.co",
   "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
 );
@@ -10,18 +10,18 @@ let score = 0;
 
 const quizQuestions = [
     {
-        question: "Quel est l'enfant préféré de Papa ?",
-        options: ["Octave", "Magdalena", "Bartholomé"],
-        answer: 0
+        question: "Quel est le plat préféré de Papa ?",
+        options: ["Pizza", "Raclette", "Pâtes"],
+        answer: 1
     },
     {
-        question: "Quelle est son expression favorite?",
-        options: ["Diantre", "Zut", "Daube"],
+        question: "Quelle est sa couleur préférée ?",
+        options: ["Bleu", "Rouge", "Vert"],
         answer: 0
     },
     {
         question: "Quel est son hobby préféré ?",
-        options: ["Football", "trail", "Cyclisme"],
+        options: ["Football", "Lecture", "Cyclisme"],
         answer: 2
     }
 ];
