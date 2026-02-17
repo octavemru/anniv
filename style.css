@@ -30,7 +30,9 @@ td, th {
 }
 
 #quizContainer img {
-    max-width: 100%;
-    height: auto;
+    width: 150px;       /* largeur fixe */
+    height: 150px;      /* hauteur fixe */
+    object-fit: cover;  /* recadre l'image pour remplir le cadre */
+    border-radius: 8px; /* coins arrondis */
+    margin: 5px;
 }
-
