@@ -172,9 +172,11 @@ async function loadMessages(){
             </div>
         `;
     });
-}
 
 // Charger les messages au démarrage
 loadMessages();
+}
+
+
 
 });
