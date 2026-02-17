@@ -1,4 +1,6 @@
-var supabase = window.supabase.createClient(
+document.addEventListener("DOMContentLoaded", () => {
+
+const supabase = window.supabase.createClient(
   "https://ddzebzonhkghfzjkvuan.supabase.co",
   "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
 );
@@ -25,6 +27,7 @@ const quizQuestions = [
 ];
 
 document.getElementById("validatePseudo").addEventListener("click", () => {
+
     const input = document.getElementById("pseudo").value;
 
     if(!input){
@@ -38,25 +41,30 @@ document.getElementById("validatePseudo").addEventListener("click", () => {
 });
 
 function loadQuiz(){
+
     const container = document.getElementById("quizContainer");
     container.innerHTML = "";
     score = 0;
 
-    quizQuestions.forEach((q, index) => {
+    quizQuestions.forEach((q) => {
+
         const div = document.createElement("div");
         div.innerHTML += `<p>${q.question}</p>`;
 
         q.options.forEach((option, i) => {
+
             const btn = document.createElement("button");
             btn.innerText = option;
 
             btn.addEventListener("click", () => {
+
                 if(i === q.answer){
                     score++;
                     btn.style.backgroundColor = "green";
                 } else {
                     btn.style.backgroundColor = "red";
                 }
+
                 Array.from(div.getElementsByTagName("button"))
                      .forEach(b => b.disabled = true);
             });
@@ -102,3 +110,5 @@ async function loadLeaderboard(){
         `;
     });
 }
+
+});
