@@ -7,47 +7,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let pseudo = "";
     let score = 0;
-    let quizDone = false;
 
-    // Quiz enfant uniquement
-    const quizEnfant = [
-        { question: "Quel est l'enfant préféré de Papa ?", options: ["Octave", "Magdalena", "Bartholomé"], answer: 0 },
-        { question: "Quelle est son expression préférée ?", options: ["Diantre", "Zut", "Daube"], answer: 2 },
-        { question: "Quel est son hobby préféré ?", options: ["Football", "Trail", "Cyclisme"], answer: 1 }
-    ];
+    // Tous les quiz disponibles
+    const quizzes = {
+        papa: [
+            { question: "Quel est le plat préféré de Papa ?", options: ["Pizza", "Raclette", "Pâtes"], answer: 1 },
+            { question: "Quelle est sa couleur préférée ?", options: ["Bleu", "Rouge", "Vert"], answer: 0 },
+            { question: "Quel est son hobby préféré ?", options: ["Football", "Lecture", "Cyclisme"], answer: 2 }
+        ],
+        enfant: [
+            { question: "Quel est l'enfant préféré de Papa ?", options: ["Octave", "Magdalena", "Bartholomé"], answer: 0 },
+            { question: "Quelle est son expression préférée ?", options: ["Diantre", "Zut", "Daube"], answer: 2 },
+            { question: "Quel est son hobby préféré ?", options: ["Football", "Trail", "Cyclisme"], answer: 1 }
+        ]
+    };
+
+    // Choix du quiz
+    let currentQuiz = quizzes.enfant; // ou "papa"
 
     // Validation du pseudo
-    document.getElementById("validatePseudo").addEventListener("click", async () => {
-        const input = document.getElementById("pseudo").value.trim();
+    document.getElementById("validatePseudo").addEventListener("click", () => {
+        const input = document.getElementById("pseudo").value;
         if(!input){
             alert("Entre un pseudo !");
             return;
         }
-
         pseudo = input;
-
-        // Vérifie si le pseudo a déjà fait le quiz
-        //const { data: existing } = await supabase
-            //.from("scores")
-            //.select("*")
-            //.eq("username", pseudo);
-
-        //if(existing.length > 0){
-            //alert("Ce pseudo a déjà fait le quiz !");
-            //return;
-        //}
-
         document.getElementById("quizSection").style.display = "block";
         loadQuiz();
     });
 
-    // Charger le quiz
+    // Fonction pour charger le quiz
     function loadQuiz(){
         const container = document.getElementById("quizContainer");
         container.innerHTML = "";
         score = 0;
 
-        quizEnfant.forEach((q, index) => {
+        currentQuiz.forEach((q, index) => {
             const div = document.createElement("div");
             div.classList.add("questionBlock");
             div.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
@@ -63,8 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     } else {
                         btn.style.backgroundColor = "red";
                     }
-
-                    // Désactive tous les boutons de la question
+                    // Désactive tous les boutons de la question après un clic
                     Array.from(div.getElementsByTagName("button")).forEach(b => b.disabled = true);
                 });
 
@@ -77,11 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Soumettre le quiz et enregistrer le score
     document.getElementById("submitQuiz").addEventListener("click", async () => {
-        if(quizDone){
-            alert("Tu as déjà fait le quiz !");
-            return;
-        }
-
         document.getElementById("finalScore").innerText = score;
 
         await supabase.from("scores").insert({
@@ -90,14 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         alert("Score enregistré !");
-        quizDone = true;
         loadLeaderboard();
     });
 
     // Rafraîchir le leaderboard
     document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
 
-    // Charger leaderboard avec mise en évidence des 3 premiers
     async function loadLeaderboard(){
         let { data } = await supabase
             .from("scores")
@@ -105,16 +93,11 @@ document.addEventListener("DOMContentLoaded", () => {
             .order("score", { ascending: false });
 
         const table = document.getElementById("leaderboard");
-        table.innerHTML = `<tr><th>Pseudo</th><th>Score</th></tr>`;
+        table.innerHTML = "";
 
         data.forEach((row, index) => {
-            let bg = "white"; 
-            if(index === 0) bg = "gold";
-            else if(index === 1) bg = "silver";
-            else if(index === 2) bg = "peru";
-
             table.innerHTML += `
-                <tr style="background-color:${bg}; font-weight:bold;">
+                <tr style="background-color:${index===0?'gold':index===1?'silver':index===2?'peru':'white'}">
                     <td>${row.username}</td>
                     <td>${row.score}</td>
                 </tr>
