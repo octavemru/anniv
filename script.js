@@ -128,7 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = option.image;
                 img.alt = "Option";
                 img.style.width = "150px";
+                img.style.height = "150px";
+                img.style.objectFit = "cover";
                 img.style.borderRadius = "8px";
+                img.style.margin = "5px";
                 btn.appendChild(img);
 
                 btn.addEventListener("click", () => {
