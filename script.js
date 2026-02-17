@@ -1,108 +1,55 @@
-document.addEventListener("DOMContentLoaded", () => {
+// QUESTIONS DU QUIZ
+const quizQuestions = [
+    {
+        question: "Quel est le plat préféré de Papa ?",
+        options: ["Pizza", "Raclette", "Pâtes"],
+        answer: 1 // Raclette
+    },
+    {
+        question: "Quelle est sa couleur préférée ?",
+        options: ["Bleu", "Rouge", "Vert"],
+        answer: 0 // Bleu
+    },
+    {
+        question: "Quel est son hobby préféré ?",
+        options: ["Football", "Lecture", "Cyclisme"],
+        answer: 2 // Cyclisme
+    }
+];
 
-    const supabase = window.supabase.createClient(
-        "https://ddzebzonhkghfzjkvuan.supabase.co",
-        "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
-    );
+let score = 0;
 
-    let pseudo = "";
-    let score = 0;
+// AFFICHER LE QUIZ
+const quizContainer = document.getElementById("quizContainer");
 
-    // Tous les quiz disponibles
-    const quizzes = {
-        papa: [
-            { question: "Quel est le plat préféré de Papa ?", options: ["Pizza", "Raclette", "Pâtes"], answer: 1 },
-            { question: "Quelle est sa couleur préférée ?", options: ["Bleu", "Rouge", "Vert"], answer: 0 },
-            { question: "Quel est son hobby préféré ?", options: ["Football", "Lecture", "Cyclisme"], answer: 2 }
-        ],
-        enfant: [
-            { question: "Quel est l'enfant préféré de Papa ?", options: ["Octave", "Magdalena", "Bartholomé"], answer: 0 },
-            { question: "Quelle est son expression préférée ?", options: ["Diantre", "Zut", "Daube"], answer: 2 },
-            { question: "Quel est son hobby préféré ?", options: ["Football", "Trail", "Cyclisme"], answer: 1 }
-        ]
-    };
+quizQuestions.forEach((q, index) => {
+    const questionDiv = document.createElement("div");
+    questionDiv.classList.add("question");
 
-    // Choix du quiz
-    let currentQuiz = quizzes.enfant; // ou "papa"
+    const questionTitle = document.createElement("p");
+    questionTitle.innerText = q.question;
+    questionDiv.appendChild(questionTitle);
 
-    // Validation du pseudo
-    document.getElementById("validatePseudo").addEventListener("click", () => {
-        const input = document.getElementById("pseudo").value;
-        if(!input){
-            alert("Entre un pseudo !");
-            return;
-        }
-        pseudo = input;
-        document.getElementById("quizSection").style.display = "block";
-        loadQuiz();
+    q.options.forEach((option, i) => {
+        const btn = document.createElement("button");
+        btn.innerText = option;
+        btn.addEventListener("click", () => {
+            if(i === q.answer){
+                score++;
+                btn.style.backgroundColor = "green";
+            } else {
+                btn.style.backgroundColor = "red";
+            }
+            Array.from(questionDiv.getElementsByTagName("button")).forEach(b => b.disabled = true);
+        });
+        questionDiv.appendChild(btn);
     });
 
-    // Fonction pour charger le quiz
-    function loadQuiz(){
-        const container = document.getElementById("quizContainer");
-        container.innerHTML = "";
-        score = 0;
+    quizContainer.appendChild(questionDiv);
+});
 
-        currentQuiz.forEach((q, index) => {
-            const div = document.createElement("div");
-            div.classList.add("questionBlock");
-            div.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
-
-            q.options.forEach((option, i) => {
-                const btn = document.createElement("button");
-                btn.innerText = option;
-
-                btn.addEventListener("click", () => {
-                    if(i === q.answer){
-                        score++;
-                        btn.style.backgroundColor = "green";
-                    } else {
-                        btn.style.backgroundColor = "red";
-                    }
-                    // Désactive tous les boutons de la question après un clic
-                    Array.from(div.getElementsByTagName("button")).forEach(b => b.disabled = true);
-                });
-
-                div.appendChild(btn);
-            });
-
-            container.appendChild(div);
-        });
-    }
-
-    // Soumettre le quiz et enregistrer le score
-    document.getElementById("submitQuiz").addEventListener("click", async () => {
-        document.getElementById("finalScore").innerText = score;
-
-        await supabase.from("scores").insert({
-            username: pseudo,
-            score: score
-        });
-
-        alert("Score enregistré !");
-        loadLeaderboard();
-    });
-
-    // Rafraîchir le leaderboard
-    document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
-
-    async function loadLeaderboard(){
-        let { data } = await supabase
-            .from("scores")
-            .select("*")
-            .order("score", { ascending: false });
-
-        const table = document.getElementById("leaderboard");
-        table.innerHTML = "";
-
-        data.forEach((row, index) => {
-            table.innerHTML += `
-                <tr style="background-color:${index===0?'gold':index===1?'silver':index===2?'peru':'white'}">
-                    <td>${row.username}</td>
-                    <td>${row.score}</td>
-                </tr>
-            `;
-        });
-    }
-
+// BOUTON VALIDER QUIZ
+document.getElementById("submitQuiz").addEventListener("click", () => {
+    const pseudo = document.getElementById("pseudo").value || "Anonyme";
+    document.getElementById("finalScore").innerText = `${pseudo} : ${score} / ${quizQuestions.length}`;
 });
