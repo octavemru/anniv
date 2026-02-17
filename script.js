@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
             div.style.display = "flex";
             div.style.justifyContent = "center";
             div.style.flexWrap = "wrap";
+            div.style.gap = "10px"; // espace entre images
 
             q.options.forEach((option) => {
                 const btn = document.createElement("button");
@@ -123,6 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 btn.style.background = "transparent";
                 btn.style.cursor = "pointer";
                 btn.style.margin = "5px";
+                btn.style.padding = "0";
 
                 const img = document.createElement("img");
                 img.src = option.image;
@@ -132,6 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.style.objectFit = "cover";
                 img.style.borderRadius = "8px";
                 img.style.margin = "5px";
+                img.style.background = "#fff";
+                
                 btn.appendChild(img);
 
                 btn.addEventListener("click", () => {
