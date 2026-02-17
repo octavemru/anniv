@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
             type: "image",
             question: "Qui est papa ?", 
             options: [
-                { image: "https://postimg.cc/nMqsNCPw][img]https://i.postimg.cc/nMqsNCPw/gabin.jpg",correct:false},
-                { image: "https://postimg.cc/1fPgSyxh][img]https://i.postimg.cc/1fPgSyxh/papa.jpg",correct:true},
-                { image: "url=https://postimg.cc/mh7cKtnG][img]https://i.postimg.cc/mh7cKtnG/singe.jpg",correct:false}
+                { image: "https://i.postimg.cc/v8NWgnLM/gabin.jpg",correct:false},
+                { image: "https://i.postimg.cc/fTSYxbBL/papa.jpg",correct:true},
+                { image: "https://i.postimg.cc/RCDc6tQq/singe.jpg",correct:false}
             ] 
         }
     ];
