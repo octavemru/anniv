@@ -101,14 +101,32 @@ async function loadLeaderboard(){
     const table = document.getElementById("leaderboard");
     table.innerHTML = "";
 
-    data.forEach(row => {
+    data.forEach((row, index) => {
+
+        let medal = "";
+        let style = "";
+
+        if(index === 0){
+            medal = "🥇 ";
+            style = "background-color: gold; font-weight: bold;";
+        }
+        else if(index === 1){
+            medal = "🥈 ";
+            style = "background-color: silver; font-weight: bold;";
+        }
+        else if(index === 2){
+            medal = "🥉 ";
+            style = "background-color: #cd7f32; font-weight: bold;";
+        }
+
         table.innerHTML += `
-            <tr>
-                <td>${row.username}</td>
+            <tr style="${style}">
+                <td>${medal}${row.username}</td>
                 <td>${row.score}</td>
             </tr>
         `;
     });
 }
+
 
 });
