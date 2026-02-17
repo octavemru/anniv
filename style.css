@@ -32,8 +32,6 @@ td, th {
 #quizContainer img {
     width: 150px;        /* largeur fixe pour toutes */
     height: auto;        /* hauteur proportionnelle */
-    max-height: 150px;   /* hauteur maximale */
-    object-fit: contain;  /* tout l'image visible, sans couper */
     border-radius: 8px;
     margin: 5px;
     background: #fff;    /* pour voir l’espace si image petite */
@@ -45,4 +43,5 @@ td, th {
     flex-wrap: wrap;
     gap: 10px;  /* espace entre les images */
 }
+
 
