@@ -1,114 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const supabase = window.supabase.createClient(
-  "https://ddzebzonhkghfzjkvuan.supabase.co",
-  "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
-);
+    const supabase = window.supabase.createClient(
+        "https://ddzebzonhkghfzjkvuan.supabase.co",
+        "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
+    );
 
-let pseudo = "";
-let score = 0;
+    let pseudo = "";
+    let score = 0;
 
-const quizQuestions = [
-    {
-        question: "Quel est l'enfant préféré de Papa ?",
-        options: ["Octave", "Magdalena", "Bartholomé"],
-        answer: 0
-    },
-    {
-        question: "Quelle est son expression préférée ?",
-        options: ["Diantre", "Zut", "Daube"],
-        answer: 2
-    },
-    {
-        question: "Quel est son hobby préféré ?",
-        options: ["Football", "Trail", "Cyclisme"],
-        answer: 1
-    }
-];
+    // Quiz enfant uniquement
+    const quizEnfant = [
+        { question: "Quel est l'enfant préféré de Papa ?", options: ["Octave", "Magdalena", "Bartholomé"], answer: 0 },
+        { question: "Quelle est son expression préférée ?", options: ["Diantre", "Zut", "Daube"], answer: 2 },
+        { question: "Quel est son hobby préféré ?", options: ["Football", "Trail", "Cyclisme"], answer: 1 }
+    ];
 
-document.getElementById("validatePseudo").addEventListener("click", () => {
+    // Validation du pseudo
+    document.getElementById("validatePseudo").addEventListener("click", () => {
+        const input = document.getElementById("pseudo").value;
+        if(!input){
+            alert("Entre un pseudo !");
+            return;
+        }
+        pseudo = input;
+        document.getElementById("quizSection").style.display = "block";
+        loadQuiz();
+    });
 
-    const input = document.getElementById("pseudo").value;
+    // Charger le quiz
+    function loadQuiz(){
+        const container = document.getElementById("quizContainer");
+        container.innerHTML = "";
+        score = 0;
 
-    if(!input){
-        alert("Entre un pseudo !");
-        return;
-    }
+        quizEnfant.forEach((q, index) => {
+            const div = document.createElement("div");
+            div.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
-    pseudo = input;
-    document.getElementById("quizSection").style.display = "block";
-    loadQuiz();
-});
+            q.options.forEach((option, i) => {
+                const btn = document.createElement("button");
+                btn.innerText = option;
 
-function loadQuiz(){
+                btn.addEventListener("click", () => {
+                    if(i === q.answer){
+                        score++;
+                    }
+                    // Désactive tous les boutons de la question
+                    Array.from(div.getElementsByTagName("button")).forEach(b => b.disabled = true);
+                });
 
-    const container = document.getElementById("quizContainer");
-    container.innerHTML = "";
-    score = 0;
-
-    quizQuestions.forEach((q) => {
-
-        const div = document.createElement("div");
-        div.innerHTML += `<p>${q.question}</p>`;
-
-        q.options.forEach((option, i) => {
-
-            const btn = document.createElement("button");
-            btn.innerText = option;
-
-            btn.addEventListener("click", () => {
-
-                if(i === q.answer){
-                    score++;
-                    btn.style.backgroundColor = "green";
-                } else {
-                    btn.style.backgroundColor = "red";
-                }
-
-                Array.from(div.getElementsByTagName("button"))
-                     .forEach(b => b.disabled = true);
+                div.appendChild(btn);
             });
 
-            div.appendChild(btn);
+            container.appendChild(div);
+        });
+    }
+
+    // Soumettre le quiz et enregistrer le score
+    document.getElementById("submitQuiz").addEventListener("click", async () => {
+        document.getElementById("finalScore").innerText = score;
+
+        await supabase.from("scores").insert({
+            username: pseudo,
+            score: score
         });
 
-        container.appendChild(div);
-    });
-}
-
-document.getElementById("submitQuiz").addEventListener("click", async () => {
-
-    document.getElementById("finalScore").innerText = score;
-
-    await supabase.from("scores").insert({
-        username: pseudo,
-        score: score
+        alert("Score enregistré !");
+        loadLeaderboard();
     });
 
-    alert("Score enregistré !");
-    loadLeaderboard();
-});
+    // Rafraîchir le leaderboard
+    document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
 
-document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
+    async function loadLeaderboard(){
+        let { data } = await supabase
+            .from("scores")
+            .select("*")
+            .order("score", { ascending: false });
 
-async function loadLeaderboard(){
+        const table = document.getElementById("leaderboard");
+        table.innerHTML = "";
 
-    let { data } = await supabase
-        .from("scores")
-        .select("*")
-        .order("score", { ascending: false });
-
-    const table = document.getElementById("leaderboard");
-    table.innerHTML = "";
-
-    data.forEach(row => {
-        table.innerHTML += `
-            <tr>
-                <td>${row.username}</td>
-                <td>${row.score}</td>
-            </tr>
-        `;
-    });
-}
+        data.forEach(row => {
+            table.innerHTML += `
+                <tr>
+                    <td>${row.username}</td>
+                    <td>${row.score}</td>
+                </tr>
+            `;
+        });
+    }
 
 });
