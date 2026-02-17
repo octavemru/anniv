@@ -27,15 +27,15 @@ document.addEventListener("DOMContentLoaded", () => {
         pseudo = input;
 
         // Vérifie si le pseudo a déjà fait le quiz
-        const { data: existing } = await supabase
-            .from("scores")
-            .select("*")
-            .eq("username", pseudo);
+        //const { data: existing } = await supabase
+            //.from("scores")
+            //.select("*")
+            //.eq("username", pseudo);
 
-        if(existing.length > 0){
-            alert("Ce pseudo a déjà fait le quiz !");
-            return;
-        }
+        //if(existing.length > 0){
+            //alert("Ce pseudo a déjà fait le quiz !");
+            //return;
+        //}
 
         document.getElementById("quizSection").style.display = "block";
         loadQuiz();
