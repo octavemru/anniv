@@ -11,9 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Quiz ---
     const quizQuestions = [
-        { question: "Quel est l'enfant préféré de Papa ?", options: ["Octave", "Magdalena", "Bartholomé"], answer: 0 },
-        { question: "Quelle est son expression préférée ?", options: ["Diantre", "Daube", "Zut"], answer: 1 },
-        { question: "Quel est son hobby préféré ?", options: ["Football", "Cyclisme", "Trail"], answer: 2 }
+        {   
+            type: "text",
+            question: "Quel est l'enfant préféré de Papa ?", 
+            options: ["Octave", "Magdalena", "Bartholomé"], 
+            answer: 0 
+        },
+        {
+            type: "text",
+            question: "Quelle est son expression préférée ?", 
+            options: ["Diantre", "Daube", "Zut"], 
+            answer: 1 
+        },
+        { 
+            type: "text",
+            question: "Quel est son hobby préféré ?", options: ["Football", "Cyclisme", "Trail"], 
+            answer: 2 
+        }
     ];
 
     // --- Charger les messages ---
