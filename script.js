@@ -1,6 +1,6 @@
 const supabase = window.supabase.createClient(
   "https://ddzebzonhkghfzjkvuan.supabase.co",   
-  "sb_secret_aIhn55ueLbZY0FPOjAVjxQ_aMePvFFQ"
+  "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
 );
 
 document.getElementById("saveBtn").addEventListener("click", saveScore);
