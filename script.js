@@ -10,19 +10,19 @@ let score = 0;
 
 const quizQuestions = [
     {
-        question: "Quel est le plat préféré de Papa ?",
-        options: ["Pizza", "Raclette", "Pâtes"],
-        answer: 1
-    },
-    {
-        question: "Quelle est sa couleur préférée ?",
-        options: ["Bleu", "Rouge", "Vert"],
+        question: "Quel est l'enfant préféré de Papa ?",
+        options: ["Octave", "Magdalena", "Bartholomé"],
         answer: 0
     },
     {
-        question: "Quel est son hobby préféré ?",
-        options: ["Football", "Lecture", "Cyclisme"],
+        question: "Quelle est son expression préférée ?",
+        options: ["Diantre", "Zut", "Daube"],
         answer: 2
+    },
+    {
+        question: "Quel est son hobby préféré ?",
+        options: ["Football", "Trail", "Cyclisme"],
+        answer: 1
     }
 ];
 
