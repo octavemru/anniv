@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let pseudo = "";
     let score = 0;
-    let quizDone = false; // empêche de refaire le quiz
+    let quizDone = false;
 
     // Quiz enfant uniquement
     const quizEnfant = [
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Validation du pseudo
     document.getElementById("validatePseudo").addEventListener("click", async () => {
-        const input = document.getElementById("pseudo").value;
+        const input = document.getElementById("pseudo").value.trim();
         if(!input){
             alert("Entre un pseudo !");
             return;
@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         quizEnfant.forEach((q, index) => {
             const div = document.createElement("div");
+            div.classList.add("questionBlock");
             div.innerHTML = `<p>${index + 1}. ${q.question}</p>`;
 
             q.options.forEach((option, i) => {
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         btn.style.backgroundColor = "red";
                     }
 
-                    // Désactive tous les boutons de la question après un clic
+                    // Désactive tous les boutons de la question
                     Array.from(div.getElementsByTagName("button")).forEach(b => b.disabled = true);
                 });
 
@@ -89,13 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         alert("Score enregistré !");
-        quizDone = true; // marque le quiz comme fait
+        quizDone = true;
         loadLeaderboard();
     });
 
     // Rafraîchir le leaderboard
     document.getElementById("refreshBtn").addEventListener("click", loadLeaderboard);
 
+    // Charger leaderboard avec mise en évidence des 3 premiers
     async function loadLeaderboard(){
         let { data } = await supabase
             .from("scores")
@@ -103,17 +105,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .order("score", { ascending: false });
 
         const table = document.getElementById("leaderboard");
-        table.innerHTML = "";
+        table.innerHTML = `<tr><th>Pseudo</th><th>Score</th></tr>`;
 
         data.forEach((row, index) => {
-            // Les 3 premiers scores mis en évidence
-            let bg = "white";
+            let bg = "white"; 
             if(index === 0) bg = "gold";
             else if(index === 1) bg = "silver";
             else if(index === 2) bg = "peru";
 
             table.innerHTML += `
-                <tr style="background-color:${bg}">
+                <tr style="background-color:${bg}; font-weight:bold;">
                     <td>${row.username}</td>
                     <td>${row.score}</td>
                 </tr>
