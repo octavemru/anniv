@@ -130,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 img.src = option.image;
                 img.alt = "Option";
                 img.style.width = "150px";  // largeur fixe
-                img.style.height = "auto";  // hauteur proportionnelle
                 img.style.borderRadius = "8px";
                 img.style.margin = "5px";
                 img.style.background = "#fff";  // pour les images avec transparence
