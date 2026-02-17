@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-
+// Charger les messages au démarrage
+loadMessages();
 const supabase = window.supabase.createClient(
   "https://ddzebzonhkghfzjkvuan.supabase.co",
   "sb_publishable_XEk9jtKJ__YwooQy-qU5ew_srAfLOnI"
@@ -173,8 +174,6 @@ async function loadMessages(){
         `;
     });
 
-// Charger les messages au démarrage
-loadMessages();
 }
 
 
