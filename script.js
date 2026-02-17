@@ -57,20 +57,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- Fonction pour charger le quiz ---
     function loadQuiz() {
-        const container = document.getElementById("quizContainer");
-        container.innerHTML = "";
-        score = 0;
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+    score = 0;
 
-        quizQuestions.forEach((q) => {
-            const div = document.createElement("div");
-            div.innerHTML += `<p>${q.question}</p>`;
+    quizQuestions.forEach((q) => {
+        const div = document.createElement("div");
+        div.style.marginBottom = "30px";
+        div.innerHTML += `<p>${q.question}</p>`;
 
+        if(q.type === "text") {
+            // Quiz texte
             q.options.forEach((option, i) => {
                 const btn = document.createElement("button");
                 btn.innerText = option;
+                btn.style.margin = "5px";
 
                 btn.addEventListener("click", () => {
-                    if (i === q.answer) {
+                    if(i === q.answer){
                         score++;
                         btn.style.backgroundColor = "green";
                     } else {
@@ -78,15 +82,52 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
                     Array.from(div.getElementsByTagName("button"))
-                        .forEach(b => b.disabled = true);
+                         .forEach(b => b.disabled = true);
                 });
 
                 div.appendChild(btn);
             });
+        }
+        else if(q.type === "image") {
+            // Quiz image
+            div.style.display = "flex";
+            div.style.justifyContent = "center";
+            div.style.flexWrap = "wrap";
 
-            container.appendChild(div);
-        });
-    }
+            q.options.forEach((option) => {
+                const btn = document.createElement("button");
+                btn.style.border = "none";
+                btn.style.background = "transparent";
+                btn.style.cursor = "pointer";
+                btn.style.margin = "5px";
+
+                const img = document.createElement("img");
+                img.src = option.image;
+                img.alt = "Option";
+                img.style.width = "150px";
+                img.style.borderRadius = "8px";
+                btn.appendChild(img);
+
+                btn.addEventListener("click", () => {
+                    if(option.correct){
+                        score++;
+                        img.style.border = "4px solid green";
+                    } else {
+                        img.style.border = "4px solid red";
+                    }
+
+                    Array.from(div.getElementsByTagName("button"))
+                         .forEach(b => b.disabled = true);
+                });
+
+                div.appendChild(btn);
+            });
+        }
+
+        container.appendChild(div);
+    });
+}
+
 
     // --- Valider le pseudo (unique) ---
     document.getElementById("validatePseudo").addEventListener("click", async () => {
